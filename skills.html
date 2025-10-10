@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Skills — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="stage">
+    <!-- canvas dùng kiểu cuộn dọc -->
+    <div class="canvas scrollable">
+      <!-- nút back -->
+      <div class="bottom-bar" style="position:static; padding:10px 16px 0; gap:12px; justify-content:flex-start;">
+        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
+      </div>
+
+      <!-- trang cuộn dài -->
+      <div class="scroll-page">
+        <h1 class="skills-scroll-title">MY SKILLS</h1>
+
+        <!-- Block 1: Soft vs Leadership -->
+        <div class="skills-row">
+          <section class="skill-manga">
+            <div class="skill-head">Soft skills</div>
+            <ul class="skill-list">
+              <li>Time management</li>
+              <li>Work well under pressure (stress tolerance)</li>
+              <li>Adaptability</li>
+              <li>Business communication</li>
+              <li>Problem solving</li>
+            </ul>
+          </section>
+
+          <section class="skill-manga">
+            <div class="skill-head">Leadership skills</div>
+            <ul class="skill-list">
+              <li>Team leadership & coordination</li>
+              <li>Strategic planning & task delegation</li>
+              <li>Clear communication & active listening</li>
+              <li>People/HR management & operations</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Ảnh minh họa 1 (đổi src ảnh của bạn) -->
+        <img class="art-img" src="images/skills-hero-1.png" alt="illustration 1"
+             onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph-rect tall'}));"/>
+
+        <!-- Block 2: Business analysis vs Content Creator -->
+        <div class="skills-row">
+          <section class="skill-manga">
+            <div class="skill-head">Business analysis</div>
+            <ul class="skill-list">
+              <li>Market & customer research</li>
+              <li>Data synthesis & insight</li>
+              <li>Problem framing</li>
+              <li>OKR & metric thinking</li>
+            </ul>
+          </section>
+
+          <section class="skill-manga">
+            <div class="skill-head">Core skill — Content Creator</div>
+            <ul class="skill-list">
+              <li>Content writing</li>
+              <li>Social content & ads • SEO</li>
+              <li>Content planning & scheduling</li>
+              <li>Brand consistency</li>
+              <li>Audience research & insights</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Ảnh minh họa 2 -->
+        <img class="art-img" src="images/skills-hero-2.png" alt="illustration 2"
+             onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph-rect tall'}));"/>
+
+        <!-- Certificate thuộc My Skills -->
+        <h2 class="skills-scroll-title sub">MY CERTIFICATE</h2>
+        <div class="cert-row">
+          <section class="cert-card">
+            <div class="ph-rect cert"
+                 style="background:url('images/cert-1.jpg') center/cover no-repeat;"></div>
+            <p class="cert-cap">MisTalent 2025 “E-Mastery”</p>
+          </section>
+
+          <section class="cert-card">
+            <div class="ph-rect cert"
+                 style="background:url('images/cert-2.jpg') center/cover no-repeat;"></div>
+            <p class="cert-cap">Content Creator — TM</p>
+          </section>
+        </div>
+        <div style="height:24px"></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

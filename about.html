@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About me — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="stage">
+    <div class="canvas">
+      <!-- nút quay về -->
+      <div class="bottom-bar" style="position:static; padding:10px 16px 0; gap:12px; justify-content:flex-start;">
+        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
+      </div>
+
+      <section class="about-wrap">
+        <div class="about-greeting">(HELLO EVERYONE)</div>
+        <h1 class="about-title">ABOUT ME</h1>
+
+        <!-- thông tin 2 cột -->
+        <div class="about-meta">
+          <div class="meta-left">
+            <p class="meta-line name"><strong>Nguyen Dang Minh</strong></p>
+            <p class="meta-line">Thanh Hoa, Viet Nam</p>
+          </div>
+          <div class="meta-right">
+            <p class="meta-line"><strong>Age 20</strong></p>
+            <p class="meta-line"><strong>Birth: 27.08.2005</strong></p>
+          </div>
+        </div>
+
+        <!-- 3 khối: panel trái – ảnh – panel phải -->
+        <div class="about-triptych">
+          <!-- panel trái: khung vẽ tay -->
+          <section class="panel-sketch">
+            <a class="pill pill-mini" href="contact.html" title="More about me">
+              <span class="txt"><em>Click Here</em></span>
+            </a>
+
+            <div class="sketch-frame"><i></i></div>
+
+            <div class="panel-inner">
+              <p class="panel-sub">If you want to know more</p>
+              <p class="panel-strong">More about me</p>
+            </div>
+          </section>
+
+          <!-- ảnh giữa -->
+          <div class="about-hero">
+            <!-- Sau này thay div này bằng <img src="images/me.png" alt="Minh" class="about-hero-img"> -->
+            <div class="about-hero-square" data-label="Add image here"></div>
+          </div>
+
+          <!-- panel phải: khung vẽ tay -->
+          <section class="panel-sketch">
+            <a class="pill pill-mini" href="work.html" title="How I work?">
+              <span class="txt"><em>Click Here</em></span>
+            </a>
+
+            <div class="sketch-frame"><i></i></div>
+
+            <div class="panel-inner">
+              <p class="panel-sub">If you want to know more</p>
+              <p class="panel-strong">How I work?</p>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

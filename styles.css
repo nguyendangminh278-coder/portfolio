@@ -1,0 +1,635 @@
+/* =========================================================
+   Portfolio — Clean CSS
+   Tone: trắng (#FFF), mực (#4D4D4D), vibe manga tối giản
+   ========================================================= */
+
+/* -------------------- Tokens -------------------- */
+:root{
+  --ink:#4D4D4D;
+  --paper:#FFFFFF;
+  --shadow:rgba(0,0,0,.05);
+
+  --chip-h:54px;
+  --chip-gap:16px;
+
+  --stage-w:1920;
+  --stage-h:1080;
+
+  /* Hero ribbon */
+  --ribbon-top:34%;
+  --ribbon-right:14%;
+  --ribbon-rotate:-17deg;
+
+  /* Accents */
+  --accent:var(--ink);
+
+  /* Sticky header (skills/cert) */
+  --hdrH:clamp(72px,13vw,150px);
+}
+
+/* -------------------- Base / Reset -------------------- */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  line-height:1.35;
+}
+
+/* -------------------- Stage (16:9 canvas) -------------------- */
+.stage{
+  width:100vw; height:100vh;
+  display:grid; place-items:center; overflow:hidden;
+}
+.canvas{
+  position:relative;
+  width:min(100vw, calc(100vh*16/9));
+  aspect-ratio:16/9;
+  background:var(--paper);
+  outline:none;
+  display:flex; flex-direction:column; /* để phần có cuộn chiếm phần còn lại */
+}
+
+/* =========================================================
+   HOME (Hero)
+   ========================================================= */
+.hero-title{
+  position:absolute; left:50%; top:22%;
+  transform:translate(-50%,-50%);
+  margin:0;
+  color:var(--ink);
+  font-weight:900;
+  font-size:clamp(56px,12vw,180px);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  line-height:1;
+  text-shadow:4px 4px 0 rgba(0,0,0,.08);
+  z-index:1;
+}
+.hero-badges{ position:absolute; inset:0; pointer-events:none; z-index:2; }
+.hero-badges .badge{
+  position:absolute; top:12%;
+  color:var(--accent);
+  font-weight:900;
+  font-size:clamp(14px,1.6vw,22px);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+.hero-badges .badge.left{ left:6%; }
+.hero-badges .badge.right{ right:6%; text-align:right; }
+
+.hero-ribbon{
+  position:absolute; top:var(--ribbon-top); right:var(--ribbon-right);
+  transform:rotate(var(--ribbon-rotate));
+  pointer-events:none; z-index:3;
+}
+.hero-ribbon span{
+  display:inline-block;
+  padding:10px 30px;
+  background:var(--paper);
+  color:var(--ink);
+  border:4px solid var(--ink);
+  border-radius:12px;
+  font-weight:900;
+  font-size:clamp(14px,2.2vw,28px);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  box-shadow:6px 6px 0 0 var(--ink);
+}
+
+/* Ảnh hero */
+.hero-photo{
+  position:absolute; left:50%; top:46%;
+  transform:translate(-50%,-50%);
+  height:min(68vh,78%);
+  object-fit:contain;
+  filter:drop-shadow(10px 12px 0 var(--ink));
+  pointer-events:none; z-index:2;
+}
+@media (max-width:860px){
+  .hero-photo{ top:50%; height:min(60vh,80%); }
+}
+
+/* =========================================================
+   Bottom Nav (5 chips)
+   ========================================================= */
+.bottom-bar{
+  position:absolute; left:0; right:0; bottom:0;
+  display:flex; justify-content:space-evenly; align-items:flex-end;
+  gap:20px; padding:10px 6vw 18px;
+  background:var(--paper);
+}
+.nav-chip{
+  display:inline-grid; place-items:center;
+  height:var(--chip-h); width:200px;
+  padding:0 20px;
+  color:var(--ink); background:var(--paper);
+  border:2px solid var(--ink); border-radius:10px;
+  box-shadow:5px 5px 0 0 var(--ink);
+  font-weight:700; text-decoration:none; cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.nav-chip:hover,.nav-chip:focus{
+  transform:translate(-2px,-2px);
+  box-shadow:9px 9px 0 0 var(--ink);
+  outline:none;
+}
+
+/* Ripple click */
+.nav-chip{ overflow:hidden; }
+.nav-chip .ripple{
+  position:absolute; width:10px; height:10px; border-radius:999px;
+  background:rgba(77,77,77,.15);
+  transform:translate(-50%,-50%) scale(1);
+  animation:ripple .6s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes ripple{ to{ transform:translate(-50%,-50%) scale(16); opacity:0; } }
+
+/* Transition overlay */
+.transition-overlay{
+  position:fixed; inset:0; background:var(--paper);
+  transform:translateY(100%); transition:transform .55s ease-in-out;
+  z-index:9999; pointer-events:none;
+  box-shadow:inset 0 12px 0 0 var(--ink);
+  border-top:2px solid var(--ink);
+}
+body.is-transitioning .transition-overlay{ transform:translateY(0); }
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+.about-wrap{ position:relative; padding:18px 24px 28px; }
+.about-greeting{ position:absolute; right:24px; top:12px; font-weight:700; font-size:14px; letter-spacing:.06em; }
+.about-title{
+  margin:8px 0 6px; text-align:center;
+  color:var(--ink); font-weight:900; letter-spacing:.02em;
+  font-size:clamp(56px,12vw,160px); line-height:.95;
+  text-shadow:4px 4px 0 rgba(0,0,0,.08);
+}
+.about-meta{
+  display:grid; grid-template-columns:1.1fr .9fr; gap:20px; align-items:start;
+  margin:6px 0 8px;
+}
+.meta-left,.meta-right{ font-size:clamp(16px,2vw,24px); }
+.meta-right{ text-align:right; }
+.meta-line{ margin:6px 0; }
+.meta-line.name{ font-size:clamp(18px,2.4vw,28px); }
+
+.about-triptych{
+  display:grid; grid-template-columns:1fr auto 1fr; gap:24px; align-items:center;
+  margin:10px 0 6px;
+}
+.about-hero{ display:grid; place-items:center; }
+.about-hero-square,
+.about-hero-img{
+  width:min(360px,32vw); aspect-ratio:1/1; border:3px solid var(--ink);
+  box-shadow:8px 8px 0 0 var(--ink); border-radius:14px;
+}
+.about-hero-square{ display:grid; place-items:center; font-weight:800; background:var(--paper); color:var(--ink); }
+.about-hero-square::after{ content:attr(data-label); opacity:.85; }
+.about-hero-img{ object-fit:cover; }
+
+.panel-manga{
+  position:relative; border:3px solid var(--ink); border-radius:10px;
+  background:var(--paper); box-shadow:8px 8px 0 0 var(--ink);
+  padding:28px 18px 22px;
+}
+.panel-sub{ margin:4px 0; opacity:.8; font-size:clamp(14px,1.8vw,18px); }
+.panel-strong{ margin:2px 0; font-weight:800; font-size:clamp(16px,2vw,22px); }
+.pill.pill-mini{
+  position:absolute; left:50%; top:-18px; transform:translateX(-50%);
+  display:inline-flex; align-items:center; padding:6px 14px;
+  color:var(--ink); background:var(--paper);
+  border:2px solid var(--ink); border-radius:999px; box-shadow:4px 4px 0 0 var(--ink);
+  font-weight:800; text-decoration:underline;
+}
+
+@media (max-width:980px){
+  .about-meta{ grid-template-columns:1fr; gap:6px; }
+  .meta-right{ text-align:left; }
+  .about-triptych{ grid-template-columns:1fr; gap:16px; }
+  .about-hero-square,.about-hero-img{ width:min(340px,80vw); }
+}
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+.proj-wrap{ padding:10px 20px 24px; }
+.proj-title{
+  margin:0 0 12px; text-align:center;
+  color:var(--ink); font-weight:900; letter-spacing:.02em;
+  font-size:clamp(40px,8.5vw,86px);
+}
+.proj-layout{ display:grid; grid-template-columns:240px 1fr; gap:20px; align-items:start; }
+.proj-menu{ display:grid; gap:8px; padding:8px 0 0 6px; }
+
+.proj-item{
+  position:relative; display:inline-block; cursor:pointer;
+  padding:6px 10px 6px 26px; color:var(--ink); text-decoration:none; font-weight:600; outline:none;
+}
+/* backslash ổn định */
+.proj-item::before{ content:"\005C"; position:absolute; left:4px; top:50%; transform:translateY(-50%); opacity:.9; transition:opacity .18s, transform .18s; }
+.proj-item::after { content:"\005C"; position:absolute; right:4px; top:50%; transform:translateY(-50%) translateX(6px); opacity:0; transition:opacity .18s, transform .18s; }
+.proj-item:hover,.proj-item:focus,.proj-item.is-active{ font-weight:800; }
+.proj-item:hover::before,.proj-item:focus::before,.proj-item.is-active::before{ opacity:0; transform:translateY(-50%) translateX(-6px); }
+.proj-item:hover::after,.proj-item:focus::after,.proj-item.is-active::after{ opacity:1; transform:translateY(-50%) translateX(0); }
+
+.project-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+.proj-card{
+  display:block; overflow:hidden; background:var(--paper);
+  border:2px solid var(--ink); border-radius:10px; box-shadow:6px 6px 0 0 var(--ink);
+  transition:transform .12s, box-shadow .12s;
+}
+.proj-card:hover,.proj-card:focus{ transform:translate(-2px,-2px); box-shadow:10px 10px 0 0 var(--ink); outline:none; }
+.proj-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+@media (max-width:980px){
+  .proj-layout{ grid-template-columns:1fr; }
+  .project-grid{ grid-template-columns:1fr; }
+}
+
+/* =========================================================
+   SKILLS + CERT (vertical snap)
+   ========================================================= */
+.skills-title{
+  text-align:center; color:var(--ink);
+  font-weight:900; letter-spacing:.02em;
+  font-size:clamp(48px,10vw,120px);
+  text-shadow:4px 4px 0 rgba(0,0,0,.08);
+}
+
+/* Sticky header */
+.sticky-header{
+  position:sticky; top:8px; z-index:5;
+  height:var(--hdrH); margin:0;
+  display:flex; align-items:flex-end;
+  background:var(--paper);
+}
+
+/* vùng cuộn chiếm phần còn lại của .canvas */
+.snap-y{
+  flex:1; overflow-y:auto;
+  scroll-snap-type:y mandatory; scroll-snap-stop:always;
+  padding:0 20px 20px;
+}
+
+/* mỗi slide khớp với header sticky */
+.snap-slide{
+  scroll-snap-align:start;
+  min-height:100%;
+  padding-top:calc(var(--hdrH) + 12px);
+  padding-bottom:24px;
+}
+
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:start; }
+.ph-rect{
+  width:100%; height:180px; margin-bottom:10px;
+  background:var(--paper);
+  border:3px solid var(--ink); border-radius:12px;
+  box-shadow:6px 6px 0 0 var(--ink);
+}
+.skill-list{ margin:0; padding-left:16px; opacity:.85; }
+.skill-list li{ margin:6px 0; }
+
+.cert-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:start; margin-top:8px; }
+.cert-card .ph-rect{ height:220px; }
+.cert-cap{ margin:8px 0 0; font-weight:600; }
+
+@media (max-width:980px){
+  .grid-2{ grid-template-columns:1fr; }
+  .cert-wrap{ grid-template-columns:1fr; }
+  .sticky-header{ top:6px; }
+  .snap-y{ padding:0 14px 16px; }
+}
+
+/* =========================================================
+   WORKS
+   ========================================================= */
+.work-wrap{ padding:12px 20px 30px; max-width:1100px; margin:0 auto; }
+.work-title{
+  margin:0 0 8px; text-align:center; color:var(--ink);
+  font-weight:900; letter-spacing:.02em;
+  font-size:clamp(48px,10vw,120px);
+  text-shadow:4px 4px 0 rgba(0,0,0,.08);
+}
+.work-sub{ margin:0 0 12px; text-align:center; font-size:clamp(22px,2.6vw,30px); font-weight:800; }
+.work-sub-2{ text-align:left; margin-top:18px; }
+
+.work-entry{
+  margin-bottom:18px; padding:16px;
+  background:var(--paper);
+  border:2px solid var(--ink); border-radius:12px;
+  box-shadow:8px 8px 0 0 var(--ink);
+}
+.work-header{ display:grid; grid-template-columns:88px 1fr; gap:14px; align-items:center; }
+.ph-square{
+  width:84px; aspect-ratio:1/1; display:grid; place-items:center;
+  background:var(--paper); font-weight:900;
+  border:2px solid var(--ink); border-radius:10px; box-shadow:4px 4px 0 0 var(--ink);
+}
+.work-company{ margin:0; font-size:clamp(16px,2.2vw,22px); font-weight:900; }
+.work-role{ margin:4px 0; font-weight:700; }
+.work-unit{ margin:0; }
+.dim{ opacity:.8; }
+
+.work-body{ margin-top:10px; }
+.work-bullets{ margin:0 0 8px 18px; }
+.work-bullets li{ margin:6px 0; }
+
+.work-grid-title{ margin:16px 0 8px; font-weight:800; font-size:clamp(18px,2vw,22px); }
+.work-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+
+.ph-num{
+  position:relative; overflow:hidden;
+  width:100%; aspect-ratio:16/9; background:var(--paper);
+  border:3px solid var(--ink); border-radius:12px; box-shadow:6px 6px 0 0 var(--ink);
+}
+.ph-num::after{
+  content:attr(data-n);
+  position:absolute; inset:0; display:grid; place-items:center;
+  color:var(--ink); font-weight:900; opacity:.25;
+  font-size:clamp(36px,8vw,72px);
+}
+.work-img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  border-radius:10px; border:3px solid var(--ink); box-shadow:6px 6px 0 0 var(--ink);
+}
+
+@media (max-width:980px){
+  .work-grid{ grid-template-columns:1fr; }
+  .work-header{ grid-template-columns:64px 1fr; }
+  .ph-square{ width:60px; }
+}
+
+/* =========================================================
+   CONTACT (đã tune tỉ lệ, khoảng cách, kích thước icon)
+   ========================================================= */
+.contact-wrap{ padding:10px 20px 24px; }
+.contact-title{
+  margin:6px 0 12px; text-align:left;
+  color:var(--ink); font-weight:900; letter-spacing:.02em;
+  font-size:clamp(56px,9.5vw,140px);
+  text-shadow:4px 4px 0 rgba(0,0,0,.08);
+}
+.contact-layout{
+  display:grid; grid-template-columns:1.2fr .8fr;  /* trái rộng hơn */
+  gap:32px; align-items:start;
+}
+
+.phone-row{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+.pill.phone{
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+  padding:10px 14px; color:var(--ink); background:var(--paper);
+  border:2px solid var(--ink); border-radius:999px; box-shadow:5px 5px 0 0 var(--ink);
+  text-decoration:none; font-weight:800;
+}
+.pill.phone .ico.circ{
+  width:28px; height:28px; display:inline-grid; place-items:center;
+  border:2px solid var(--ink); border-radius:999px; font-size:16px;
+}
+
+.email-row{ margin:14px 0 18px; }
+.email-link{
+  display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+  color:var(--ink); text-decoration:none; font-weight:700;
+  border:2px solid var(--ink); border-radius:10px; padding:8px 12px;
+  box-shadow:5px 5px 0 0 var(--ink);
+}
+
+.panel-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px; }
+.panel-head{
+  position:absolute; top:-20px; left:16px;
+  background:var(--paper); padding:0 10px;
+  font-weight:900; font-size:18px;
+}
+.panel-manga{ padding:34px 22px 26px; } /* dày hơn để “nặng” mắt */
+
+.social-row{ display:flex; gap:16px; flex-wrap:wrap; padding-top:10px; }
+.social-slot{
+  --size:78px;                       /* icon to hơn */
+  position:relative; width:var(--size); height:var(--size);
+  display:grid; place-items:center;
+  color:var(--ink); text-decoration:none; font-weight:700;
+  border:2px solid var(--ink); border-radius:12px; box-shadow:4px 4px 0 0 var(--ink);
+}
+.social-slot::after{
+  content:attr(data-label);
+  position:absolute; left:50%; bottom:-22px; transform:translateX(-50%);
+  font-size:13px; font-weight:700;
+}
+
+.contact-right{ display:grid; place-items:start end; }
+.img-big-placeholder,
+.mascot-img{
+  width:min(420px,90%); border-radius:16px; border:3px solid var(--ink);
+  box-shadow:8px 8px 0 0 var(--ink);
+}
+.img-big-placeholder{
+  height:min(520px,62vh);
+  display:grid; place-items:center; padding:10px; text-align:center; font-weight:800; color:var(--ink);
+  background:var(--paper);
+}
+.img-big-placeholder::after{ content:attr(data-label); opacity:.85; }
+.mascot-img{ height:auto; }
+
+@media (max-width:980px){
+  .contact-layout{ grid-template-columns:1fr; gap:18px; }
+  .panel-grid{ grid-template-columns:1fr; }
+  .panel-manga{ padding:28px 18px 22px; }
+  .panel-head{ top:-16px; font-size:16px; }
+  .social-row{ gap:12px; }
+  .social-slot{ --size:64px; }
+  .contact-title{ text-align:center; }
+  .contact-right{ place-items:center; }
+}
+
+/* Reduce motion accessibility */
+@media (prefers-reduced-motion:reduce){
+  .snap-y{ scroll-behavior:auto; }
+}
+/* =========================================================
+   SKILLS — SCROLL IMAGE LAYOUT (continuous scroll)
+   ========================================================= */
+
+/* bật cuộn dọc cho canvas của trang skills */
+.canvas.scrollable{ overflow:auto; }
+
+/* khối trang dài */
+.scroll-page{ padding: 0 22px 24px; }
+
+/* tiêu đề to như mockup */
+.skills-scroll-title{
+  margin: 8px 0 14px;
+  text-align: center;
+  color: var(--ink);
+  font-weight: 900;
+  letter-spacing: .02em;
+  font-size: clamp(56px, 10vw, 140px);
+  text-shadow: 4px 4px 0 rgba(0,0,0,.08);
+}
+.skills-scroll-title.sub{ margin-top: 28px; }
+
+/* 2 khung nằm ngang */
+.skills-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin: 10px 0 18px;
+  align-items: start;
+}
+
+/* “Manga frame” cho panel kỹ năng */
+.skill-manga{
+  position: relative;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  border-radius: 12px;
+  box-shadow: 8px 8px 0 0 var(--ink);
+  padding: 26px 18px 20px;
+}
+.skill-head{
+  position: absolute; top: -18px; left: 16px;
+  background: var(--paper); padding: 0 10px;
+  font-weight: 900;
+  font-size: clamp(16px, 2.2vw, 22px);
+}
+.skill-list{ margin: 0; padding-left: 16px; opacity: .9; }
+.skill-list li{ margin: 6px 0; }
+
+/* ảnh minh hoạ lớn giữa các block */
+.art-img{
+  display: block;
+  width: min(1120px, 92%);
+  margin: 8px auto 18px;
+}
+
+/* placeholder nếu chưa có ảnh */
+.ph-rect{
+  width: min(1120px, 92%); height: 260px; margin: 8px auto 18px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+.ph-rect.tall{ height: 360px; }
+
+/* certificate phía dưới skills */
+.cert-row{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  align-items: start;
+  margin-top: 6px;
+}
+.cert-card .ph-rect.cert{ height: 260px; }
+.cert-cap{ margin: 8px 0 0; font-weight: 600; text-align: left; }
+
+/* Responsive */
+@media (max-width: 980px){
+  .skills-row, .cert-row{ grid-template-columns: 1fr; gap: 18px; }
+  .art-img, .ph-rect{ width: 96%; }
+}
+/* === Khung vẽ tay (sketch) dùng cho 2 panel ở ABOUT === */
+:root{
+  /* bạn có thể tinh chỉnh nhanh ở đây */
+  --sketch-stroke: 10px;
+  --sketch-gap: 14px;
+  --sketch-overshoot: 14px;
+  --sketch-color: var(--ink);
+}
+
+/* Panel mới thay cho .panel-manga */
+.panel-sketch{
+  position: relative;
+  min-height: 190px;                 /* chiều cao tối thiểu */
+  padding: 32px 20px 26px;           /* khoảng đệm bên trong cho text */
+}
+
+/* Khung vẽ tay nằm tuyệt đối phủ kín panel */
+.panel-sketch .sketch-frame{
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  color: var(--sketch-color);
+  /* bỏ width/height cố định để khung co theo panel */
+  --stroke: var(--sketch-stroke);
+  --gap: var(--sketch-gap);
+  --overshoot: var(--sketch-overshoot);
+}
+.panel-sketch .sketch-frame > i{ display:block; height:100%; }
+
+/* Mượn lại cấu trúc nét từ code bạn gửi */
+.panel-sketch .sketch-frame::before,
+.panel-sketch .sketch-frame::after,
+.panel-sketch .sketch-frame i::before,
+.panel-sketch .sketch-frame i::after{
+  content:""; position:absolute; background:currentColor; pointer-events:none;
+}
+
+/* TOP */
+.panel-sketch .sketch-frame::before{
+  height:var(--stroke);
+  width:calc(100% - var(--gap));
+  left:var(--gap); top:0;
+  -webkit-mask:linear-gradient(90deg,transparent 0 8px,#000 26px calc(100% - 10px),transparent);
+          mask:linear-gradient(90deg,transparent 0 8px,#000 26px calc(100% - 10px),transparent);
+  transform:translateY(2px) skewX(-2deg);
+  border-radius:999px;
+}
+/* LEFT */
+.panel-sketch .sketch-frame i::before{
+  width:var(--stroke);
+  height:calc(100% - 10px);
+  left:0; top:4px;
+  -webkit-mask:linear-gradient(#000 18px calc(100% - 6px),transparent);
+          mask:linear-gradient(#000 18px calc(100% - 6px),transparent);
+  transform:translateX(2px) skewY(-1deg);
+  border-radius:999px;
+}
+/* RIGHT */
+.panel-sketch .sketch-frame i::after{
+  width:var(--stroke);
+  height:calc(100% + var(--overshoot));
+  right:0; top:-2px;
+  -webkit-mask:linear-gradient(180deg,#000 14px calc(100% - 16px),transparent);
+          mask:linear-gradient(180deg,#000 14px calc(100% - 16px),transparent);
+  transform:translateX(-2px) skewY(2deg);
+  border-radius:999px;
+}
+/* BOTTOM */
+.panel-sketch .sketch-frame::after{
+  height:calc(var(--stroke) + 2px);
+  width:calc(100% + var(--overshoot));
+  left:0; bottom:0;
+  -webkit-mask:linear-gradient(90deg,#000 16px calc(100% - 42px),transparent);
+          mask:linear-gradient(90deg,#000 16px calc(100% - 42px),transparent);
+  transform:translateY(-2px) skewX(1.5deg);
+  border-radius:999px;
+}
+
+/* Nội dung trong panel */
+.panel-sketch .panel-inner{
+  position: relative;                /* để nằm trên khung */
+  z-index: 1;
+}
+.panel-sketch .panel-sub{ opacity:.8; margin:4px 0 6px; font-size:clamp(14px,1.8vw,18px); }
+.panel-sketch .panel-strong{ font-weight:800; margin:0; font-size:clamp(16px,2vw,22px); }
+
+/* Giữ cái “Click Here” dạng pill giống cũ */
+.panel-sketch .pill.pill-mini{
+  position:absolute; left:50%; top:-20px; transform:translateX(-50%);
+  padding:6px 14px; border:2px solid var(--ink); background:var(--paper);
+  border-radius:999px; box-shadow:4px 4px 0 0 var(--ink);
+  text-decoration:underline; color:var(--ink); font-weight:800;
+}
+
+/* Responsive nhỏ lại một chút trên màn hẹp */
+@media (max-width:980px){
+  .panel-sketch{ padding:28px 16px 22px; }
+  .panel-sketch .pill.pill-mini{ top:-16px; }
+}
