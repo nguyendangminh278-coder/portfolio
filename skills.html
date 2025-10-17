@@ -3,96 +3,97 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Skills — Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>My Skills</title>
+  <style>
+    /* ===== Tokens đồng bộ ===== */
+    :root{
+      --ink:#4D4D4D;
+      --paper:#FFFFFF;
+      --chip-h:54px;
+    }
+
+    /* ===== Base ===== */
+    html, body{ height:100%; margin:0; background:var(--paper); color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      line-height:1.35;
+    }
+
+    /* ===== Chip (đồng bộ style trang khác) ===== */
+    .chip{
+      display:inline-grid; place-items:center; cursor:pointer;
+      height:var(--chip-h); padding:0 18px;
+      color:var(--ink); background:var(--paper);
+      border:2px solid var(--ink); border-radius:10px;
+      box-shadow:5px 5px 0 0 var(--ink);
+      font-weight:700; text-decoration:none;
+      transition:transform .12s ease, box-shadow .12s ease, color .12s ease, background .12s ease;
+      position:relative; overflow:hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .chip:hover, .chip:focus{
+      transform:translate(-2px,-2px);
+      box-shadow:9px 9px 0 0 var(--ink);
+      outline:none;
+    }
+    /* hover đảo màu tương phản (giống yêu cầu ở trang chính) */
+    .chip:hover{
+      background: #000; color: #fff;
+    }
+
+    /* Ripple đồng bộ */
+    .chip .ripple{
+      position:absolute; width:10px; height:10px; border-radius:999px;
+      background:rgba(77,77,77,.15);
+      transform:translate(-50%,-50%) scale(1);
+      animation:ripple .6s ease-out forwards; pointer-events:none;
+    }
+    @keyframes ripple{ to{ transform:translate(-50%,-50%) scale(16); opacity:0; } }
+
+    /* ===== Back chip (cố định góc trái trên) ===== */
+    .back-chip{
+      position:fixed; left:14px; top:14px; z-index:10;
+      height:42px; /* nhỏ hơn chip thường một chút nhưng vẫn giữ form */
+    }
+
+    /* ===== Khung ảnh ===== */
+    .wrap{
+      min-height:100vh;
+      display:grid; place-items:center;
+      padding:64px 10px 12px;   /* chừa chỗ cho nút back */
+    }
+    .wrap img{
+      width:min(1400px, 96vw);
+      height:auto; display:block;
+    }
+  </style>
 </head>
 <body>
-  <main class="stage">
-    <!-- canvas dùng kiểu cuộn dọc -->
-    <div class="canvas scrollable">
-      <!-- nút back -->
-      <div class="bottom-bar" style="position:static; padding:10px 16px 0; gap:12px; justify-content:flex-start;">
-        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
-      </div>
 
-      <!-- trang cuộn dài -->
-      <div class="scroll-page">
-        <h1 class="skills-scroll-title">MY SKILLS</h1>
+  <!-- Nút quay lại (đồng bộ chip + ripple + hover đảo màu) -->
+  <a class="chip back-chip" href="index.html" aria-label="Quay lại trang chủ">← Back to main</a>
 
-        <!-- Block 1: Soft vs Leadership -->
-        <div class="skills-row">
-          <section class="skill-manga">
-            <div class="skill-head">Soft skills</div>
-            <ul class="skill-list">
-              <li>Time management</li>
-              <li>Work well under pressure (stress tolerance)</li>
-              <li>Adaptability</li>
-              <li>Business communication</li>
-              <li>Problem solving</li>
-            </ul>
-          </section>
-
-          <section class="skill-manga">
-            <div class="skill-head">Leadership skills</div>
-            <ul class="skill-list">
-              <li>Team leadership & coordination</li>
-              <li>Strategic planning & task delegation</li>
-              <li>Clear communication & active listening</li>
-              <li>People/HR management & operations</li>
-            </ul>
-          </section>
-        </div>
-
-        <!-- Ảnh minh họa 1 (đổi src ảnh của bạn) -->
-        <img class="art-img" src="images/skills-hero-1.png" alt="illustration 1"
-             onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph-rect tall'}));"/>
-
-        <!-- Block 2: Business analysis vs Content Creator -->
-        <div class="skills-row">
-          <section class="skill-manga">
-            <div class="skill-head">Business analysis</div>
-            <ul class="skill-list">
-              <li>Market & customer research</li>
-              <li>Data synthesis & insight</li>
-              <li>Problem framing</li>
-              <li>OKR & metric thinking</li>
-            </ul>
-          </section>
-
-          <section class="skill-manga">
-            <div class="skill-head">Core skill — Content Creator</div>
-            <ul class="skill-list">
-              <li>Content writing</li>
-              <li>Social content & ads • SEO</li>
-              <li>Content planning & scheduling</li>
-              <li>Brand consistency</li>
-              <li>Audience research & insights</li>
-            </ul>
-          </section>
-        </div>
-
-        <!-- Ảnh minh họa 2 -->
-        <img class="art-img" src="images/skills-hero-2.png" alt="illustration 2"
-             onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph-rect tall'}));"/>
-
-        <!-- Certificate thuộc My Skills -->
-        <h2 class="skills-scroll-title sub">MY CERTIFICATE</h2>
-        <div class="cert-row">
-          <section class="cert-card">
-            <div class="ph-rect cert"
-                 style="background:url('images/cert-1.jpg') center/cover no-repeat;"></div>
-            <p class="cert-cap">MisTalent 2025 “E-Mastery”</p>
-          </section>
-
-          <section class="cert-card">
-            <div class="ph-rect cert"
-                 style="background:url('images/cert-2.jpg') center/cover no-repeat;"></div>
-            <p class="cert-cap">Content Creator — TM</p>
-          </section>
-        </div>
-        <div style="height:24px"></div>
-      </div>
-    </div>
+  <!-- Ảnh duy nhất -->
+  <main class="wrap">
+    <img
+      src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/6ddc6cb3a9f0b4f056c99cb2ce8841aecde247a1/%E1%BA%A2nh%20main/Skill/skill.png"
+      alt="My Skills & Certificate"
+      loading="eager"
+    />
   </main>
+
+  <script>
+    // Ripple effect đồng bộ cho .chip
+    document.addEventListener('click', function(e){
+      const t = e.target.closest('.chip');
+      if(!t) return;
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      const rect = t.getBoundingClientRect();
+      r.style.left = (e.clientX - rect.left) + 'px';
+      r.style.top  = (e.clientY - rect.top)  + 'px';
+      t.appendChild(r);
+      setTimeout(()=> r.remove(), 650);
+    });
+  </script>
 </body>
 </html>

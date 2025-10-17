@@ -5,69 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About me — Portfolio</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- CSS trang About: chỉ để đặt vị trí 2 vùng chữ đè lên ảnh -->
+  <style>
+    /* khung chứa ảnh + overlay */
+    .about-frame{
+      position:relative;
+      width:100%;
+      max-width:1400px;
+      margin:0 auto;
+    }
+    .about-frame img{
+      width:100%;
+      height:auto;
+      display:block;
+      pointer-events:none; /* không chặn click overlay */
+    }
+
+    /* 2 vùng chữ click */
+    .overlay-link{
+      position:absolute;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:.24em;
+      text-decoration:none;
+      color:var(--ink, #4D4D4D);
+      font-family:inherit;
+      padding:10px 14px;
+      /* không vẽ khung — chỉ chữ đè lên trong ô manga của ảnh */
+      background:transparent;
+      /* giúp vùng click dễ bấm hơn nhưng không thấy viền */
+      outline: none;
+    }
+    .overlay-link .l1{ font-size:clamp(18px,2.4vw,28px); font-weight:900; text-decoration:underline; }
+    .overlay-link .l2{ font-size:clamp(18px,2.2vw,26px); font-weight:800; }
+    .overlay-link .l3{ font-size:clamp(16px,2vw,24px); font-weight:700; letter-spacing:.02em; }
+
+    /* hover: đảo màu tương phản nhẹ như bạn muốn */
+    .overlay-link:hover,
+    .overlay-link:focus-visible{
+      color:#000;
+      text-decoration:none;
+      filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+    }
+
+    /* Định vị theo tỉ lệ (phù hợp bố cục ảnh của bạn) */
+    /* Ô trái (More about me) */
+    .link-left{
+      left:7%;
+      right:52%;
+      top:60%;
+      bottom:9%;
+    }
+    .link-left{
+  transform: translateX(40px);
+}
+    /* Ô phải (How I Work) */
+    .link-right{
+      left:57%;
+      right:7%;
+      top:60%;
+      bottom:9%;
+    }
+.link-right{
+  transform: translateX(140px);
+}
+  
+
+    /* tinh chỉnh nhẹ cho màn hẹp */
+    @media (max-width: 900px){
+      .link-left, .link-right{ top:61%; }
+    }
+    @media (max-width: 680px){
+      .link-left, .link-right{ top:62%; }
+    }
+  </style>
 </head>
 <body>
   <main class="stage">
     <div class="canvas">
-      <!-- nút quay về -->
+
+      <!-- Nút quay lại trang chủ (giữ đúng style của bạn) -->
       <div class="bottom-bar" style="position:static; padding:10px 16px 0; gap:12px; justify-content:flex-start;">
-        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
+        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">
+          ← Trang chủ
+        </a>
       </div>
 
-      <section class="about-wrap">
-        <div class="about-greeting">(HELLO EVERYONE)</div>
-        <h1 class="about-title">ABOUT ME</h1>
+      <!-- Ảnh About của bạn + 2 link chữ đè lên -->
+      <section class="about-frame" aria-label="About Nguyen Dang Minh">
+        <img
+          src="https://github.com/nguyendangminh278-coder/portfolio/blob/b6bf4ba06a12623dd313c961a73fc768b6aba96a/%E1%BA%A2nh%20main/About/1.png?raw=1"
+          alt="About me — Nguyen Dang Minh"
+          loading="eager"
+        />
 
-        <!-- thông tin 2 cột -->
-        <div class="about-meta">
-          <div class="meta-left">
-            <p class="meta-line name"><strong>Nguyen Dang Minh</strong></p>
-            <p class="meta-line">Thanh Hoa, Viet Nam</p>
-          </div>
-          <div class="meta-right">
-            <p class="meta-line"><strong>Age 20</strong></p>
-            <p class="meta-line"><strong>Birth: 27.08.2005</strong></p>
-          </div>
-        </div>
+        <!-- Ô trái: More about me -->
+        <a class="overlay-link link-left" href="about-more.html" aria-label="Xem thêm về tôi">
+          <span class="l1"><em>Click here</em
+            ></span>
+          <span class="l2">To know</span>
+          <span class="l3">More about me</span>
+        </a>
 
-        <!-- 3 khối: panel trái – ảnh – panel phải -->
-        <div class="about-triptych">
-          <!-- panel trái: khung vẽ tay -->
-          <section class="panel-sketch">
-            <a class="pill pill-mini" href="contact.html" title="More about me">
-              <span class="txt"><em>Click Here</em></span>
-            </a>
-
-            <div class="sketch-frame"><i></i></div>
-
-            <div class="panel-inner">
-              <p class="panel-sub">If you want to know more</p>
-              <p class="panel-strong">More about me</p>
-            </div>
-          </section>
-
-          <!-- ảnh giữa -->
-          <div class="about-hero">
-            <!-- Sau này thay div này bằng <img src="images/me.png" alt="Minh" class="about-hero-img"> -->
-            <div class="about-hero-square" data-label="Add image here"></div>
-          </div>
-
-          <!-- panel phải: khung vẽ tay -->
-          <section class="panel-sketch">
-            <a class="pill pill-mini" href="work.html" title="How I work?">
-              <span class="txt"><em>Click Here</em></span>
-            </a>
-
-            <div class="sketch-frame"><i></i></div>
-
-            <div class="panel-inner">
-              <p class="panel-sub">If you want to know more</p>
-              <p class="panel-strong">How I work?</p>
-            </div>
-          </section>
-        </div>
+        <!-- Ô phải: How I Work -->
+        <a class="overlay-link link-right" href="how-i-work.html" aria-label="Xem cách tôi làm việc">
+          <span class="l1"><em>Click here</em></span>
+          <span class="l2">To know</span>
+          <span class="l3">How I Work</span>
+        </a>
       </section>
+
     </div>
   </main>
+  <script src="app.js"></script>
 </body>
 </html>

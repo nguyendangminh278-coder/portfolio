@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How I Work — Portfolio</title>
+
+  <!-- Dùng stylesheet chung của bạn -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Một ít style phụ để trang hoạt động độc lập nếu cần */
+    .how-canvas{ overflow:auto; display:flex; flex-direction:column; gap:0 }
+    .back-row{ position:sticky; top:0; z-index:10; background:#fff; padding:10px 16px 0 }
+    .how-img{ width:100%; height:auto; display:block } /* ảnh tràn viền */
+    .how-figure{ position:relative; margin:0 }
+    /* vùng click “More details at My work” trên ảnh 35.png — tinh chỉnh nếu cần */
+    .wj-hotspot{
+      position:absolute;
+      left:5%;          /* gần như khớp bố cục ảnh 35.png */
+      top:12.5%;
+      width:36%;
+      height:4.8%;
+      display:block;
+      outline:0;
+    }
+
+    /* Nút lên đầu trang (đã đồng bộ style chip của bạn) */
+    .to-top{
+      position:fixed; right:20px; bottom:20px; z-index:20;
+      display:inline-grid; place-items:center;
+      width:46px; height:46px; border-radius:999px;
+      color:#fff; background:#000; text-decoration:none; font-weight:900;
+      border:2px solid #000; box-shadow:5px 5px 0 0 var(--ink, #4D4D4D);
+      transition:transform .12s ease, box-shadow .12s ease;
+    }
+    .to-top:hover{ transform:translate(-2px,-2px); box-shadow:9px 9px 0 0 var(--ink, #4D4D4D); }
+
+    /* Overlay hiệu ứng “di chuyển không gian” đen–trắng */
+    .warp-bw{
+      position:fixed; inset:0; pointer-events:none; z-index:9998;
+      opacity:0; background:
+        radial-gradient(circle at 50% 50%, #fff 0 8%, #000 8% 16%, #fff 16% 24%, #000 24% 32%, #fff 32% 40%, #000 40% 48%, #fff 48% 56%, #000 56% 64%, #fff 64% 72%, #000 72% 80%, #fff 80% 88%, #000 88% 96%, #fff 96% 100%);
+      mix-blend-mode:normal;
+      transform:scale(0.9);
+      transition:opacity .15s ease, transform .15s ease;
+      filter:contrast(160%) saturate(0);
+    }
+    .warp-bw.is-on{
+      opacity:1; animation:warpZoom .6s ease-in forwards;
+    }
+    @keyframes warpZoom{
+      0%   { transform:scale(0.9);   filter:blur(0px) contrast(160%) saturate(0); }
+      60%  { transform:scale(1.6);   filter:blur(2px) contrast(220%) saturate(0); }
+      100% { transform:scale(2.4);   filter:blur(3px) contrast(260%) saturate(0); }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <div class="canvas how-canvas">
+
+      <!-- Back to main -->
+      <div class="back-row">
+        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Back to main</a>
+      </div>
+
+      <!-- 33.png -->
+      <img
+        class="how-img"
+        src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/901161973f0171e78e5937923d9a75b14aca7f69/%E1%BA%A2nh%20main/About/How/33.png"
+        alt="How I Work — page 33"
+        loading="eager"
+      />
+
+      <!-- 34.png -->
+      <img
+        class="how-img"
+        src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/901161973f0171e78e5937923d9a75b14aca7f69/%E1%BA%A2nh%20main/About/How/34.png"
+        alt="How I Work — page 34"
+        loading="lazy"
+      />
+
+      <!-- 35.png + hotspot “More details …” dẫn sang work.html -->
+      <figure class="how-figure">
+        <img
+          class="how-img"
+          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/901161973f0171e78e5937923d9a75b14aca7f69/%E1%BA%A2nh%20main/About/How/35.png"
+          alt="How I Work — page 35 (Work Journey)"
+          loading="lazy"
+        />
+        <a class="wj-hotspot" href="work.html" aria-label="More details at My work"></a>
+      </figure>
+
+      <!-- Overlay hiệu ứng -->
+      <div id="warpBW" class="warp-bw" aria-hidden="true"></div>
+
+      <!-- Nút quay lên đầu trang -->
+      <a href="#" id="toTop" class="to-top" aria-label="Back to top">↑</a>
+    </div>
+  </main>
+
+  <script>
+    // Hiệu ứng “di chuyển không gian” khi bấm hotspot
+    (function () {
+      const warp = document.getElementById('warpBW');
+      document.querySelectorAll('.wj-hotspot').forEach(a => {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          warp.classList.add('is-on');
+          // đợi hiệu ứng xong rồi mới chuyển trang
+          setTimeout(() => { window.location.href = this.href; }, 620);
+        });
+      });
+    })();
+
+    // Nút lên đầu trang – cuộn mượt
+    (function () {
+      const toTop = document.getElementById('toTop');
+      toTop.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+</body>
+</html>

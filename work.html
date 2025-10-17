@@ -3,152 +3,89 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Works — Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>My Work</title>
+  <style>
+    :root{
+      --ink:#4D4D4D;
+      --paper:#FFFFFF;
+      --chip-h:54px;
+    }
+    html,body{
+      height:100%; margin:0; background:var(--paper); color:var(--ink);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      line-height:1.35;
+    }
+    /* Chip đồng bộ (hover đen–trắng + ripple) */
+    .chip{
+      display:inline-grid; place-items:center; cursor:pointer;
+      height:var(--chip-h); padding:0 18px;
+      color:var(--ink); background:var(--paper);
+      border:2px solid var(--ink); border-radius:10px;
+      box-shadow:5px 5px 0 0 var(--ink);
+      font-weight:700; text-decoration:none;
+      transition:transform .12s ease, box-shadow .12s ease, color .12s ease, background .12s ease;
+      position:relative; overflow:hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .chip:hover,.chip:focus{
+      transform:translate(-2px,-2px);
+      box-shadow:9px 9px 0 0 var(--ink);
+      outline:none;
+      background:#000; color:#fff; /* đảo màu tương phản */
+    }
+    .chip .ripple{
+      position:absolute; width:10px; height:10px; border-radius:999px;
+      background:rgba(77,77,77,.15);
+      transform:translate(-50%,-50%) scale(1);
+      animation:ripple .6s ease-out forwards; pointer-events:none;
+    }
+    @keyframes ripple{ to{ transform:translate(-50%,-50%) scale(16); opacity:0; } }
+
+    /* Back chip cố định */
+    .back-chip{
+      position:fixed; left:14px; top:14px; z-index:10;
+      height:42px; /* nhỏ hơn chip tiêu chuẩn một chút */
+    }
+
+    /* Khung ảnh */
+    .wrap{
+      min-height:100vh;
+      display:grid; place-items:center;
+      padding:64px 10px 12px; /* chừa chỗ nút back */
+    }
+    .wrap img{
+      width:min(1400px, 96vw);
+      height:auto; display:block;
+    }
+  </style>
 </head>
 <body>
-  <main class="stage">
-    <!-- Cho phép cuộn toàn trang work -->
-    <div class="canvas" style="overflow:auto;">
-      <!-- Back -->
-      <div class="bottom-bar" style="position:static; padding:10px 16px 0; gap:12px; justify-content:flex-start;">
-        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
-      </div>
 
-      <section class="work-wrap">
-        <h1 class="work-title">MY WORKS</h1>
+  <!-- Nút quay lại (đồng bộ) -->
+  <a class="chip back-chip" href="index.html" aria-label="Quay lại trang chủ">← Back to main</a>
 
-        <!-- ===== Notable work ===== -->
-        <h2 class="work-sub">Notable work</h2>
-
-        <article class="work-entry">
-          <header class="work-header">
-            <div class="ph-square">LOGO</div>
-            <div class="work-meta">
-              <h3 class="work-company">HSA EDUCATION</h3>
-              <p class="work-role"><strong>Department Manager</strong> <span class="dim">(08/2024 – 08/2025)</span></p>
-              <p class="work-unit dim">TSA – Thinking Skills Assessment (Prep Operations) — HUST</p>
-            </div>
-          </header>
-
-          <div class="work-body">
-            <ul class="work-bullets">
-              <li>Planned & executed marketing campaigns (strategy, calendar, budget, creatives).</li>
-              <li>Managed product/service operations and customer care (SOPs, QA, SLAs).</li>
-              <li>Owned primary communication channels (FB Page & Group): content planning, publishing, moderation.</li>
-              <li>Coordinated cross-function (Academic, Sales, Ops) để giao đúng mục tiêu.</li>
-              <li><strong>Impact:</strong> (Điền số liệu thực tế của bạn).</li>
-            </ul>
-
-            <div class="work-channels">
-              <h4>Channels owned</h4>
-              <ul class="work-bullets">
-                <li>Facebook Page “Luyện thi ĐGTD ĐHBK HN — HSA Education” — ~42k followers, engagement (EER) ~x%.</li>
-                <li>Facebook Group “Ôn thi TSA — Đánh giá Tư duy BKHN (Official)” — ~104.6k members.</li>
-              </ul>
-            </div>
-          </div>
-        </article>
-
-        <h3 class="work-grid-title">Gallery</h3>
-        <div class="work-grid">
-          <div class="ph-num" data-n="1"></div>
-          <div class="ph-num" data-n="2"></div>
-          <div class="ph-num" data-n="3"></div>
-          <div class="ph-num" data-n="4"></div>
-        </div>
-
-        <!-- ===== Other roles ===== -->
-        <h2 class="work-sub work-sub-2">Other Roles in My HSA EDUCATION Work Journey</h2>
-
-        <article class="work-entry">
-          <header class="work-header">
-            <div class="ph-square">LOGO</div>
-            <div class="work-meta">
-              <h3 class="work-company">HSA EDUCATION</h3>
-              <p class="work-role"><strong>Event Lead — Online University Entrance Mock Exams</strong> <span class="dim">(12/2023 – 08/2024, 9 months)</span></p>
-            </div>
-          </header>
-          <div class="work-body">
-            <ul class="work-bullets">
-              <li>Managed end-to-end planning & marketing communications cho kỳ thi thử ĐH khối 12.</li>
-              <li>Organized mock exams cho các trường THPT tại Hà Nội.</li>
-              <li><strong>Impact:</strong> trung bình ~2,000–3,000 thí sinh/mùa.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="work-entry">
-          <header class="work-header">
-            <div class="ph-square">LOGO</div>
-            <div class="work-meta">
-              <h3 class="work-company">HSA EDUCATION</h3>
-              <p class="work-role"><strong>Sales Consultant / Sales Associate</strong> <span class="dim">(06/2023 – 08/2025, 2.5 years)</span></p>
-              <p class="dim"><em>Your problem is mine</em></p>
-            </div>
-          </header>
-          <div class="work-body">
-            <ul class="work-bullets">
-              <li>Tư vấn học sinh/phụ huynh, theo dõi lead & chuyển đổi; CSKH sau bán.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="work-entry">
-          <header class="work-header">
-            <div class="ph-square">LOGO</div>
-            <div class="work-meta">
-              <h3 class="work-company">HSA EDUCATION</h3>
-              <p class="work-role"><strong>Digital Content Creator — TikTok</strong> <span class="dim">(12/2023 – 08/2024, 9 months)</span></p>
-            </div>
-          </header>
-          <div class="work-body">
-            <ul class="work-bullets">
-              <li>Xây kênh TikTok cập nhật thông tin kỳ thi cho học sinh. <strong>Tools:</strong> TikTok, CapCut, Canva.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="work-entry">
-          <header class="work-header">
-            <div class="ph-square">LOGO</div>
-            <div class="work-meta">
-              <h3 class="work-company">HSA EDUCATION</h3>
-              <p class="work-role"><strong>Customer Service Representative</strong> <span class="dim">(02/2024 – 08/2024, 6 months)</span></p>
-            </div>
-          </header>
-          <div class="work-body">
-            <ul class="work-bullets">
-              <li>Duy trì nề nếp lớp, sắp TKB, hỗ trợ học sinh; theo dõi tiến độ & nhắc nhở khi cần.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="work-entry">
-          <header class="work-header">
-            <div class="ph-square">LOGO</div>
-            <div class="work-meta">
-              <h3 class="work-company">Independent</h3>
-              <p class="work-role"><strong>Independent Sales</strong> <span class="dim">(12/2023 – 02/2024, 2 months)</span></p>
-            </div>
-          </header>
-          <div class="work-body">
-            <ul class="work-bullets">
-              <li>Kinh doanh sách: nhập hàng, vận chuyển, tư vấn, CSKH, báo cáo & tồn kho.</li>
-              <li><strong>Impact:</strong> doanh thu ~50 triệu/tháng, lợi nhuận cá nhân ~40%.</li>
-            </ul>
-          </div>
-        </article>
-
-        <h3 class="work-grid-title">Gallery</h3>
-        <div class="work-grid">
-          <div class="ph-num" data-n="5"></div>
-          <div class="ph-num" data-n="6"></div>
-          <div class="ph-num" data-n="7"></div>
-          <div class="ph-num" data-n="8"></div>
-        </div>
-      </section>
-    </div>
+  <!-- Ảnh work duy nhất -->
+  <main class="wrap">
+    <img
+      src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/14e11636aa6eff84f444bf36e10ff1c077777d91/%E1%BA%A2nh%20main/Work/work.png"
+      alt="My Work"
+      loading="eager"
+    />
   </main>
+
+  <script>
+    // ripple click cho mọi .chip
+    document.addEventListener('click', function(e){
+      const t = e.target.closest('.chip');
+      if(!t) return;
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      const rect = t.getBoundingClientRect();
+      r.style.left = (e.clientX - rect.left) + 'px';
+      r.style.top  = (e.clientY - rect.top)  + 'px';
+      t.appendChild(r);
+      setTimeout(()=> r.remove(), 650);
+    });
+  </script>
 </body>
 </html>

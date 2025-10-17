@@ -5,35 +5,143 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Project — Portfolio</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Chỉnh riêng cho trang Project -->
+  <style>
+    /* Tấm giấy trắng mờ đè nền */
+    .proj-paper{
+      max-width: 1280px;
+      margin: 8px auto 18px;
+      padding: clamp(12px, 2.6vw, 24px);
+      background: rgba(255,255,255,.96);
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      box-shadow:
+        0 22px 40px rgba(0,0,0,.14),
+        8px 8px 0 0 var(--ink);
+      position: relative;
+    }
+
+    /* Ảnh tiêu đề */
+    .section-title-img{
+      display: block;
+      width: clamp(220px, 36vw, 460px);
+      height: auto;
+      margin: 4px auto 12px;
+      filter: drop-shadow(4px 4px 0 var(--ink));
+    }
+
+    /* Bố cục trong tấm giấy */
+    .proj-layout{
+      display: grid;
+      grid-template-columns: clamp(220px, 26vw, 320px) 1fr;
+      gap: clamp(16px, 2.2vw, 24px);
+      align-items: start;
+    }
+
+    /* Menu trái */
+    .proj-menu{ padding: 4px 2px 0 6px; }
+    .proj-item{
+      position: relative;
+      display: block;
+      padding: 8px 8px 8px 28px;
+      margin: 4px 0;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: clamp(16px, 1.8vw, 20px);
+    }
+    .proj-item::before{
+      content:"\\";
+      position:absolute; left:6px; top:50%;
+      transform:translateY(-50%);
+      opacity:.9;
+      transition:.18s;
+    }
+    .proj-item.is-active,
+    .proj-item:hover{ font-weight:800; }
+    .proj-item:hover::before,
+    .proj-item.is-active::before{
+      opacity:0; transform:translate(-6px,-50%);
+    }
+    .proj-item::after{
+      content:"\\";
+      position:absolute; right:6px; top:50%;
+      transform:translate(6px,-50%);
+      opacity:0; transition:.18s;
+    }
+    .proj-item:hover::after,
+    .proj-item.is-active::after{
+      opacity:1; transform:translate(0,-50%);
+    }
+
+    /* Lưới project phải */
+    .project-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap: clamp(12px, 2vw, 18px);
+    }
+    .proj-card{
+      display:block; overflow:hidden; background:var(--paper);
+      border:2px solid var(--ink); border-radius:12px;
+      box-shadow:6px 6px 0 0 var(--ink);
+      transition:transform .12s, box-shadow .12s;
+    }
+    .proj-card:hover{ transform:translate(-2px,-2px); box-shadow:10px 10px 0 0 var(--ink); }
+    .proj-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    @media (max-width: 980px){
+      .proj-layout{ grid-template-columns: 1fr; }
+      .project-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <main class="stage">
     <div class="canvas">
+      <!-- Back button đồng bộ nav-chip -->
       <div class="bottom-bar" style="position:static; padding:10px 16px 0; gap:12px; justify-content:flex-start;">
-        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
+        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">
+          ← Trang chủ
+        </a>
       </div>
 
-      <section class="proj-wrap">
-        <h1 class="proj-title">MY PROJECT</h1>
-        <div class="proj-layout">
-          <nav class="proj-menu" aria-label="Project categories">
-            <a href="#" class="proj-item is-active">Overall</a>
-            <a href="#" class="proj-item">Marketing</a>
-            <a href="#" class="proj-item">Social Media</a>
-            <a href="#" class="proj-item">Sales</a>
-            <a href="#" class="proj-item">Business Analysis</a>
-          </nav>
+      <section class="proj-wrap" aria-labelledby="projectsTitle">
+        <!-- TẤM GIẤY TRẮNG MỜ -->
+        <div class="proj-paper">
+          <!-- Ảnh tiêu đề -->
+          <img
+            id="projectsTitle"
+            class="section-title-img"
+            src="https://github.com/nguyendangminh278-coder/portfolio/blob/3dccc7b217fdb61f4083d76a6d986ad66dc8b1b9/%E1%BA%A2nh%20main/Project/pro.png?raw=1"
+            alt="MY PROJECT"
+            loading="eager"
+          />
 
-          <div class="project-grid">
-            <a class="proj-card" href="#"><img src="" alt="Project 1"></a>
-            <a class="proj-card" href="#"><img src="" alt="Project 2"></a>
-            <a class="proj-card" href="#"><img src="" alt="Project 3"></a>
-            <a class="proj-card" href="#"><img src="" alt="Project 4"></a>
+          <!-- Bố cục: menu trái + lưới project -->
+          <div class="proj-layout">
+            <nav class="proj-menu" aria-label="Project categories">
+              <a href="#" class="proj-item is-active">Overall</a>
+              <a href="#" class="proj-item">Marketing</a>
+              <a href="#" class="proj-item">Social Media</a>
+              <a href="#" class="proj-item">Sales</a>
+              <a href="#" class="proj-item">Business Analysis</a>
+            </nav>
+
+            <div class="project-grid">
+              <!-- Điền ảnh/đường dẫn thật của bạn vào src/href -->
+              <a class="proj-card" href="#"><img src="" alt="Project 1" loading="lazy"></a>
+              <a class="proj-card" href="#"><img src="" alt="Project 2" loading="lazy"></a>
+              <a class="proj-card" href="#"><img src="" alt="Project 3" loading="lazy"></a>
+              <a class="proj-card" href="#"><img src="" alt="Project 4" loading="lazy"></a>
+            </div>
           </div>
         </div>
+        <!-- /proj-paper -->
       </section>
     </div>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>

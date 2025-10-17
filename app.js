@@ -102,3 +102,67 @@ function attachSnapScroll(container, opts) {
     // Mở khoá sau delay
     setTimeout(() => { locked = false; }, delay);
   }, {
+(() => {
+  // Chặn menu chuột phải toàn trang
+  document.addEventListener('contextmenu', e => e.preventDefault(), { capture: true });
+
+  // Chặn kéo-thả (đặc biệt là ảnh)
+  document.addEventListener('dragstart', e => e.preventDefault(), { capture: true });
+
+  // Chặn copy/cut/paste
+  const block = e => e.preventDefault();
+  document.addEventListener('copy',  block, { capture: true });
+  document.addEventListener('cut',   block, { capture: true });
+  document.addEventListener('paste', block, { capture: true });
+
+  // Chặn một số phím tắt phổ biến: Ctrl+S, Ctrl+U, Ctrl+P, Ctrl+Shift+I/C/J, F12
+  document.addEventListener('keydown', e => {
+    const k = e.key?.toLowerCase();
+    const isCtrl = e.ctrlKey || e.metaKey;
+
+    const blocked =
+      (isCtrl && (k === 's' || k === 'u' || k === 'p')) ||           // Ctrl+S/U/P
+      (isCtrl && e.shiftKey && (k === 'i' || k === 'c' || k === 'j')) || // Ctrl+Shift+I/C/J
+      (e.key === 'F12');
+
+    if (blocked) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, { capture: true });
+
+  // Tuỳ chọn: vô hiệu hoá pointer-events với <img> để khó click/lưu ảnh
+  // (nếu bạn có ảnh cần click, đừng bật dòng dưới)
+  // document.querySelectorAll('img').forEach(img => img.style.pointerEvents = 'none');
+})();
+<script>
+  (function(){
+    const spot = document.querySelector('.wj-hotspot');
+    const warp = document.getElementById('warpBW');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if(spot){
+      spot.addEventListener('click', function(e){
+        e.preventDefault();
+        const target = this.getAttribute('href') || 'work.html';
+        if(!prefersReduced){
+          warp.classList.add('on');
+          setTimeout(()=>{ window.location.href = target; }, 900);
+        }else{
+          window.location.href = target;
+        }
+      });
+    }
+
+    // Nút lên đầu trang (nếu dùng)
+    const toTop = document.getElementById('toTop');
+    if(toTop){
+      toTop.addEventListener('click', function(e){
+        e.preventDefault();
+        toTop.classList.remove('fly'); void toTop.offsetWidth; toTop.classList.add('fly');
+        window.scrollTo({ top:0, behavior:'smooth' });
+        setTimeout(()=> toTop.classList.remove('fly'), 900);
+      });
+    }
+  })();
+</script>

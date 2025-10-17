@@ -3,70 +3,100 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact — Portfolio</title>
+  <title>Contact</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Chỉ cho trang Contact */
+    .contact-canvas{
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--paper);
+      overflow: auto;
+      padding: 10px;
+    }
+    .poster-wrap{
+      position: relative;
+      width: min(1400px, 96%);
+      /* Giữ tỉ lệ theo ảnh gốc — nếu muốn cố định, thay bằng aspect-ratio: 1120/1600; */
+    }
+    .poster-wrap > img{
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Vùng bấm ẩn (100% trong suốt) */
+    .hotspot{
+      position: absolute;
+      opacity: 0;               /* = 100% trong suốt */
+      /* đặt màu nền khi cần canh thử: background: rgba(0,0,0,.15); */
+      cursor: pointer;
+    }
+    /* Truy cập bàn phím vẫn nhìn thấy focus */
+    .hotspot:focus-visible{
+      outline: 3px dashed var(--ink);
+      outline-offset: 2px;
+      opacity: .1;              /* hiện nhẹ khi focus để biết vị trí */
+    }
+
+    /* Nút quay lại */
+    .top-back{
+      position: fixed;
+      left: 12px;
+      top: 12px;
+      z-index: 10;
+    }
+    .top-back .nav-chip{
+      height: 42px;
+      box-shadow: 4px 4px 0 0 var(--ink);
+    }
+  </style>
 </head>
 <body>
   <main class="stage">
-    <div class="canvas">
-      <!-- nút quay về -->
-      <div class="bottom-bar" style="position: static; padding: 10px 16px 0; gap: 12px; justify-content: flex-start;">
-        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
+    <div class="canvas contact-canvas">
+      <!-- Back to Home -->
+      <div class="top-back">
+        <a class="nav-chip" href="index.html">← Back to main</a>
       </div>
 
-      <section class="contact-wrap">
-        <h1 class="contact-title">CONTACT ME!</h1>
+      <!-- Ảnh contact duy nhất -->
+      <div class="poster-wrap" aria-label="Contact poster">
+        <img
+          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/58da9487f0b60d235ae71f69d9a534bbc9549ba2/%E1%BA%A2nh%20main/Contact/1.png"
+          alt="Contact information poster"
+          loading="eager"
+        />
 
-        <div class="contact-layout">
-          <!-- Cột trái -->
-          <section class="contact-left">
-            <!-- 2 nút điện thoại (mở Zalo) -->
-            <div class="phone-row">
-              <a class="pill phone" href="https://zalo.me/0819372550" target="_blank" rel="noopener">
-                <span class="ico circ">☎</span><span class="txt">0819372550</span>
-              </a>
-              <a class="pill phone" href="https://zalo.me/0912421336" target="_blank" rel="noopener">
-                <span class="ico circ">☎</span><span class="txt">0912421336</span>
-              </a>
-            </div>
+        <!-- ====== Hotspots ẩn (ví dụ): căn theo % để responsive ====== -->
+        <!-- SỐ ĐIỆN THOẠI — mở Zalo trước, fallback gọi điện -->
+        <a class="hotspot"
+           href="https://zalo.me/0912345678"
+           onclick="if(!navigator.userAgent.includes('Zalo')){ window.location.href='tel:+84912345678'; }"
+           aria-label="Gọi/Zalo"
+           style="left: 12%; top: 78%; width: 22%; height: 6%;"></a>
 
-            <!-- Email -->
-            <div class="email-row">
-              <a class="email-link" href="mailto:nguyendang.minh.2785@gmail.com?subject=Li%C3%AAn%20h%E1%BB%87%20portfolio">
-                <span class="ico">✉</span>
-                <span class="txt">nguyendang.minh.2785@gmail.com</span>
-              </a>
-            </div>
+        <!-- FACEBOOK -->
+        <a class="hotspot"
+           href="https://facebook.com/your.username"
+           target="_blank" rel="noopener"
+           aria-label="Facebook"
+           style="left: 44%; top: 78%; width: 18%; height: 6%;"></a>
 
-            <!-- 2 khung manga -->
-            <div class="panel-grid">
-              <section class="panel-manga">
-                <div class="panel-head">Social Contact</div>
-                <div class="social-row">
-                  <a class="social-slot" href="https://web.facebook.com/dminh2785" target="_blank" rel="noopener" data-label="Facebook"></a>
-                  <a class="social-slot" href="https://www.instagram.com/rinteru_d/" target="_blank" rel="noopener" data-label="Instagram"></a>
-                  <a class="social-slot" href="https://www.linkedin.com/in/nguy%E1%BB%85n-%C4%91%C4%83ng-minh-428874286/" target="_blank" rel="noopener" data-label="LinkedIn"></a>
-                </div>
-              </section>
+        <!-- EMAIL -->
+        <a class="hotspot"
+           href="mailto:youremail@example.com?subject=Li%C3%AAn%20h%E1%BB%87%20t%E1%BB%AB%20portfolio"
+           aria-label="Email"
+           style="left: 65%; top: 78%; width: 20%; height: 6%;"></a>
 
-              <section class="panel-manga">
-                <div class="panel-head">Social Mascot</div>
-                <div class="social-row">
-                  <a class="social-slot" href="#" data-label="Facebook"></a>
-                  <a class="social-slot" href="#" data-label="YouTube"></a>
-                  <a class="social-slot" href="#" data-label="TikTok"></a>
-                </div>
-              </section>
-            </div>
-          </section>
-
-          <!-- Cột phải: khung mascot -->
-          <aside class="contact-right">
-            <!-- sau này thay bằng <img src="images/mascot.png" alt="" class="mascot-img"> -->
-            <div class="img-big-placeholder" data-label="Add mascot image here"></div>
-          </aside>
-        </div>
-      </section>
+        <!-- NẾU ẢNH CÓ QR/ICON KHÁC: thêm hotspot tương tự, chỉnh toạ độ -->
+        <!-- <a class="hotspot" href="https://www.linkedin.com/in/..." style="left:...;top:...;width:...;height:...;"></a> -->
+      </div>
     </div>
   </main>
 </body>
