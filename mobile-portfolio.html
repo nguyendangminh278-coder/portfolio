@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>HSA Education — Mobile Portfolio</title>
+  <style>
+    :root{
+      --ink:#111; --paper:#fff;
+      --shadow:0 10px 30px rgba(0,0,0,.12);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0; background:#fff; color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      -webkit-font-smoothing:antialiased; line-height:1.45;
+    }
+
+    /* Ảnh full-bleed */
+    section{ margin:0; padding:0; }
+    .page-img{ display:block; width:100%; height:auto; object-fit:contain; margin:0; border:0; }
+
+    /* ===== Floating OPTIONS (giữa mép phải) ===== */
+    .opt{
+      position: fixed;
+      right: 12px;
+      top: calc(50% + env(safe-area-inset-top, 0px));
+      transform: translateY(-50%);
+      z-index: 1000;
+    }
+    .opt-toggle{
+      width: 50px; height: 50px; border-radius: 999px;
+      display:grid; place-items:center;
+      border:2px solid var(--ink); background:#fff;
+      box-shadow:4px 4px 0 0 var(--ink);
+      font-weight:900;
+    }
+    .opt-toggle.spin { animation: spin .45s ease both; }
+    @keyframes spin { to{ transform: rotate(360deg); } }
+
+    /* NHÃN OPTION: NHỎ HƠN + CĂN GIỮA TRÊN/DƯỚI NÚT, KHÔNG XOAY */
+    .opt-item{
+      position:absolute;
+      left: 50%;                 
+      transform: translate(-50%, 0) scale(.9);  
+      min-width: 120px; max-width: 70vw;
+      padding: 8px 12px;
+      color:#111; background:#fff; text-decoration:none; font-weight:700;
+      font-size: clamp(12px, 3.4vw, 14px);      
+      border:2px solid var(--ink); border-radius:12px; box-shadow:4px 4px 0 0 var(--ink);
+      opacity:0; pointer-events:none;
+      transform-origin: center bottom;
+      transition: opacity .22s ease, transform .26s cubic-bezier(.2,.7,.2,1.2);
+      text-align:center;
+    }
+    .opt-item.top-1{ top: -68px; }
+    .opt-item.top-2{ top: -124px; }
+    .opt-item.bot-1{ top:  68px; }
+    .opt-item.bot-2{ top: 124px; }
+
+    /* mở menu */
+    .opt.open .opt-item{
+      opacity:1; pointer-events:auto;
+      transform: translate(-50%, 0) scale(1);
+    }
+    .opt-item:active{ transform: translate(-50%, 0) scale(.98); }
+
+    /* Back-to-top */
+    .btn-top{
+      position: fixed; right: 12px; bottom: 14px; z-index: 900;
+      width: 44px; height: 44px; display:none; place-items:center;
+      border:2px solid var(--ink); border-radius:999px; background:#fff;
+      box-shadow:4px 4px 0 0 var(--ink); font-weight:900;
+    }
+    .btn-top.show{ display:grid; }
+  </style>
+</head>
+<body>
+
+<!-- ===== Options (giữa mép phải) ===== -->
+<div class="opt" id="opt">
+  <button class="opt-toggle" id="optBtn" aria-label="Options">≡</button>
+  <a class="opt-item top-2" href="#work">My Work</a>
+  <a class="opt-item top-1" href="#skills-1">My Skill</a>
+  <a class="opt-item bot-1" href="#project">My Project</a>
+  <a class="opt-item bot-2" href="#contact">My Contact</a>
+</div>
+
+<!-- Nút lên đầu trang -->
+<a href="#home" class="btn-top" id="backTop" aria-label="Back to top">↑</a>
+
+<!-- ========= Home ========= -->
+<section id="home" aria-label="Home">
+  <img class="page-img"
+    src="https://github.com/nguyendangminh278-coder/portfolio/blob/9b24019ea09bfd4e071fff01329558b957850b31/Mobile/HSA%20EDUCATION%20(Center%20for%20learning%20education)/2.png?raw=1"
+    alt="Home — HSA Education" loading="eager">
+</section>
+
+<!-- ========= My Work ========= -->
+<section id="work" aria-label="My Work">
+  <img class="page-img"
+    src="https://github.com/nguyendangminh278-coder/portfolio/blob/9b24019ea09bfd4e071fff01329558b957850b31/Mobile/HSA%20EDUCATION%20(Center%20for%20learning%20education)/3.png?raw=1"
+    alt="My Work" loading="lazy">
+</section>
+
+<!-- ========= My Skill (2 ảnh liên tiếp — vẫn chỉ 1 mục trong menu) ========= -->
+<section id="skills-1" aria-label="My Skill">
+  <img class="page-img"
+    src="https://github.com/nguyendangminh278-coder/portfolio/blob/9b24019ea09bfd4e071fff01329558b957850b31/Mobile/HSA%20EDUCATION%20(Center%20for%20learning%20education)/4.png?raw=1"
+    alt="My Skill — Page 1" loading="lazy">
+</section>
+<section id="skills-2" aria-label="My Skill (page 2)">
+  <img class="page-img"
+    src="https://github.com/nguyendangminh278-coder/portfolio/blob/9b24019ea09bfd4e071fff01329558b957850b31/Mobile/HSA%20EDUCATION%20(Center%20for%20learning%20education)/5.png?raw=1"
+    alt="My Skill — Page 2" loading="lazy">
+</section>
+
+<!-- ========= My Project ========= -->
+<section id="project" aria-label="My Project">
+  <img class="page-img"
+    src="https://github.com/nguyendangminh278-coder/portfolio/blob/9b24019ea09bfd4e071fff01329558b957850b31/Mobile/HSA%20EDUCATION%20(Center%20for%20learning%20education)/6.png?raw=1"
+    alt="My Project" loading="lazy">
+</section>
+
+<!-- ========= My Contact ========= -->
+<section id="contact" aria-label="My Contact">
+  <img class="page-img"
+    src="https://github.com/nguyendangminh278-coder/portfolio/blob/9b24019ea09bfd4e071fff01329558b957850b31/Mobile/HSA%20EDUCATION%20(Center%20for%20learning%20education)/7.png?raw=1"
+    alt="My Contact" loading="lazy">
+</section>
+
+<script>
+  // Toggle options open/close with spin
+  const opt = document.getElementById('opt');
+  const optBtn = document.getElementById('optBtn');
+  optBtn.addEventListener('click', () => {
+    opt.classList.toggle('open');
+    optBtn.classList.remove('spin'); // reset
+    void optBtn.offsetWidth;         // reflow for re-trigger
+    optBtn.classList.add('spin');
+  });
+
+  // Choose an option -> navigate & close
+  document.querySelectorAll('.opt-item').forEach(a=>{
+    a.addEventListener('click', ()=>{ opt.classList.remove('open'); });
+  });
+
+  // Click outside to close
+  document.addEventListener('click', (e)=>{ if (!opt.contains(e.target)) opt.classList.remove('open'); });
+
+  // Back-to-top show/hide
+  const topBtn = document.getElementById('backTop');
+  const onScroll = ()=> topBtn.classList.toggle('show', window.scrollY > 500);
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+</body>
+</html>
