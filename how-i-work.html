@@ -5,19 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>How I Work — Portfolio</title>
 
-  <!-- Dùng stylesheet chung của bạn -->
+  <!-- CSS chung của bạn -->
   <link rel="stylesheet" href="styles.css" />
 
   <style>
-    /* Một ít style phụ để trang hoạt động độc lập nếu cần */
+    /* Phần nhỏ để trang hoạt động độc lập nếu cần */
     .how-canvas{ overflow:auto; display:flex; flex-direction:column; gap:0 }
-    .back-row{ position:sticky; top:0; z-index:10; background:#fff; padding:10px 16px 0 }
+    .back-row{
+      position:sticky; top:0; z-index:10;
+      background:#fff; padding:10px 16px 0; display:flex; gap:12px;
+    }
     .how-img{ width:100%; height:auto; display:block } /* ảnh tràn viền */
     .how-figure{ position:relative; margin:0 }
-    /* vùng click “More details at My work” trên ảnh 35.png — tinh chỉnh nếu cần */
+    /* vùng click “More details …” trên ảnh 35.png — tinh chỉnh nếu cần */
     .wj-hotspot{
       position:absolute;
-      left:5%;          /* gần như khớp bố cục ảnh 35.png */
+      left:5%;
       top:12.5%;
       width:36%;
       height:4.8%;
@@ -25,7 +28,7 @@
       outline:0;
     }
 
-    /* Nút lên đầu trang (đã đồng bộ style chip của bạn) */
+    /* Nút lên đầu trang (đồng bộ style chip) */
     .to-top{
       position:fixed; right:20px; bottom:20px; z-index:20;
       display:inline-grid; place-items:center;
@@ -36,7 +39,7 @@
     }
     .to-top:hover{ transform:translate(-2px,-2px); box-shadow:9px 9px 0 0 var(--ink, #4D4D4D); }
 
-    /* Overlay hiệu ứng “di chuyển không gian” đen–trắng */
+    /* Overlay “di chuyển không gian” đen–trắng */
     .warp-bw{
       position:fixed; inset:0; pointer-events:none; z-index:9998;
       opacity:0; background:
@@ -60,9 +63,13 @@
   <main class="stage">
     <div class="canvas how-canvas">
 
-      <!-- Back to main -->
+      <!-- Hàng nút điều hướng -->
       <div class="back-row">
-        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Back to main</a>
+        <!-- NEW: Nút quay lại trang trước -->
+        <a id="backPrev" class="nav-chip" href="#" title="Quay lại trang trước" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">←</a>
+
+        <!-- Nút về trang chủ (đã có) -->
+        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">← Trang chủ</a>
       </div>
 
       <!-- 33.png -->
@@ -101,14 +108,26 @@
   </main>
 
   <script>
-    // Hiệu ứng “di chuyển không gian” khi bấm hotspot
+    // Nút “Trang trước” – quay lại history, fallback về index nếu không có lịch sử
+    (function () {
+      const backPrev = document.getElementById('backPrev');
+      backPrev.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html';
+        }
+      });
+    })();
+
+    // Hiệu ứng “di chuyển không gian” khi bấm hotspot sang trang Work
     (function () {
       const warp = document.getElementById('warpBW');
       document.querySelectorAll('.wj-hotspot').forEach(a => {
         a.addEventListener('click', function (e) {
           e.preventDefault();
           warp.classList.add('is-on');
-          // đợi hiệu ứng xong rồi mới chuyển trang
           setTimeout(() => { window.location.href = this.href; }, 620);
         });
       });
