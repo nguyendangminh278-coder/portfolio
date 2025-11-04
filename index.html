@@ -6,47 +6,106 @@
   <title>Portfolio — Nguyen Dang Minh</title>
   <meta name="description" content="Portfolio cá nhân của Nguyen Dang Minh." />
   <link rel="stylesheet" href="styles.css" />
-  <!-- (Tùy chọn) Preload ảnh để vào trang mượt hơn -->
+
+  <!-- Preload hero layers -->
   <link rel="preload" as="image" href="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/6.png">
   <link rel="preload" as="image" href="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/7.png">
   <link rel="preload" as="image" href="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/8.png">
+
+  <style>
+    /* ===== Floating phone button (bottom-right) ===== */
+    .mobile-fab{
+      position: fixed; right: 16px; bottom: 16px; z-index: 11000;
+      width: 48px; height: 48px; display:grid; place-items:center;
+      border-radius: 999px; background:#fff; color:#111; cursor:pointer;
+      border:2px solid #111; box-shadow:6px 6px 0 0 #111, 0 14px 28px rgba(0,0,0,.18);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .mobile-fab:active{ transform: scale(.98); box-shadow:3px 3px 0 0 #111; }
+
+    /* ===== Modal root ===== */
+    .mobile-modal{ position: fixed; inset: 0; z-index: 10900; display:none; }
+    .mobile-modal.is-open{ display:block; }
+    .mobile-backdrop{
+      position:absolute; inset:0; background:rgba(0,0,0,.78);
+      backdrop-filter: blur(1px); opacity:0; transition:opacity .2s ease;
+    }
+    .mobile-modal.is-open .mobile-backdrop{ opacity:1; }
+
+    /* ===== Centered panel (immune to ancestor transforms) ===== */
+    .mobile-panel{
+      position: fixed; top:50%; left:50%; transform: translate(-50%,-50%);
+      width: 100vw; height: 100vh; pointer-events:none;
+    }
+
+    /* Size controller for the phone height on screen */
+    :root{ --phone-h: min(86vh, 880px); } /* adjust here */
+
+    /* ===== Phone shell with anime vibe, hard 9:16 ===== */
+    .phone-shell{
+      position: absolute; top:50%; left:50%; transform: translate(-50%,-50%) scale(1);
+      height: var(--phone-h);
+      aspect-ratio: 9 / 16;        /* width will follow from height */
+      background: #fff;
+      border: 8px solid #111; border-radius: 26px;
+      box-shadow: 0 28px 70px rgba(0,0,0,.45), 12px 12px 0 0 #111;
+      overflow: hidden; pointer-events: auto;
+
+      opacity: 0; transform-origin: center;
+      transition: opacity .24s ease, transform .34s cubic-bezier(.2,.8,.2,1.1);
+    }
+    .mobile-modal.is-open .phone-shell{ opacity:1; }
+
+    /* Inner thin border */
+    .phone-shell::before{
+      content:""; position:absolute; inset:10px;
+      border:2px solid rgba(0,0,0,.12); border-radius:18px; pointer-events:none;
+    }
+
+    /* Anime tapes */
+    .tape-tl, .tape-br{
+      position:absolute; width:120px; height:18px; background:#fff;
+      border:3px solid #111; border-radius:10px; box-shadow:6px 6px 0 0 #111;
+      pointer-events:none; opacity:.9;
+    }
+    .tape-tl{ top:12px; left:18px; transform:rotate(-12deg); }
+    .tape-br{ bottom:12px; right:18px; transform:rotate(10deg); }
+
+    /* Screen mask to guarantee rounded corners on the iframe */
+    .screen-mask{
+      position:absolute; inset:0; overflow:hidden; border-radius:18px; margin:10px;
+      /* keep the same inset as ::before to align nicely */
+    }
+
+    .phone-screen{
+      display:block; width:100%; height:100%; border:0; background:#fff;
+    }
+
+    body.no-scroll{ overflow:hidden; }
+
+    /* Small heights fallback: reduce phone a bit */
+    @media (max-height: 720px){ :root{ --phone-h: min(82vh, 760px); } }
+  </style>
 </head>
+
 <body>
   <main class="stage">
     <div class="canvas">
 
-      <!-- ================= HERO (3 LAYERS) ================= -->
+      <!-- ===== HERO (3 layers) ===== -->
       <div class="hero-stack" aria-label="Portfolio hero">
-        <!-- Layer 1: Khung manga (mờ 40%) -->
-        <img
-          class="hero-layer hero-bg"
-          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/6.png"
-          alt="Manga frame background"
-          width="1600" height="900"
-          loading="eager"
-        />
-
-        <!-- Layer 2: Chữ PORTFOLIO (có viền trắng) -->
-        <img
-          class="hero-layer hero-title-img"
-          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/7.png"
-          alt="PORTFOLIO title"
-          width="1600" height="900"
-          loading="eager"
-        />
-
-        <!-- Layer 3: Nhân vật (trên cùng) -->
-        <img
-          class="hero-layer hero-person"
-          src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/8.png"
-          alt="Nguyen Dang Minh"
-          width="1200" height="1200"
-          loading="eager"
-        />
+        <img class="hero-layer hero-bg"
+             src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/6.png"
+             alt="Manga frame background" width="1600" height="900" loading="eager" />
+        <img class="hero-layer hero-title-img"
+             src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/7.png"
+             alt="PORTFOLIO title" width="1600" height="900" loading="eager" />
+        <img class="hero-layer hero-person"
+             src="https://raw.githubusercontent.com/nguyendangminh278-coder/portfolio/0ae777984de40c4dd2dcfbc4b33d04c51c14299e/%E1%BA%A2nh%20main/Main/8.png"
+             alt="Nguyen Dang Minh" width="1200" height="1200" loading="eager" />
       </div>
-      <!-- ================= /HERO ================= -->
 
-      <!-- ================= NAV (đáy trang) ================= -->
+      <!-- ===== Main nav ===== -->
       <nav class="bottom-bar" aria-label="Điều hướng chính">
         <a class="nav-chip" href="about.html">About me</a>
         <a class="nav-chip" href="projects.html">My Project</a>
@@ -54,13 +113,69 @@
         <a class="nav-chip" href="skills.html">My Skill</a>
         <a class="nav-chip contact" href="contact.html">Contact me!</a>
       </nav>
-      <!-- ================= /NAV ================= -->
-
     </div>
   </main>
 
-  <!-- Overlay chuyển trang (nếu bạn dùng trong app.js) -->
+  <!-- ===== MOBILE PREVIEW MODAL ===== -->
+  <div class="mobile-modal" id="mobileModal" aria-hidden="true">
+    <div class="mobile-backdrop" id="mobileBackdrop"></div>
+
+    <div class="mobile-panel" role="dialog" aria-label="Mobile portfolio preview" aria-modal="true">
+      <div class="phone-shell" id="phoneShell">
+        <span class="tape-tl"></span>
+        <span class="tape-br"></span>
+
+        <!-- Mask keeps rounded corners for content -->
+        <div class="screen-mask">
+          <iframe
+            id="mobileFrame"
+            class="phone-screen"
+            title="Mobile portfolio"
+            src="mobile-portfolio.html"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating open button -->
+  <button class="mobile-fab" id="openMobile" aria-label="Open mobile preview" title="Mobile preview">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+      <circle cx="12" cy="18" r="1.2" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Optional site overlay for page transitions -->
   <div class="transition-overlay" aria-hidden="true"></div>
+
+  <script>
+    const openBtn  = document.getElementById('openMobile');
+    const modal    = document.getElementById('mobileModal');
+    const backdrop = document.getElementById('mobileBackdrop');
+    const shell    = document.getElementById('phoneShell');
+
+    function openMobile(){
+      document.body.classList.add('no-scroll');
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden','false');
+      // small pop-in
+      shell.style.transform = 'translate(-50%,-50%) scale(.96)';
+      requestAnimationFrame(()=> shell.style.transform = 'translate(-50%,-50%) scale(1)');
+    }
+    function closeMobile(){
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.classList.remove('no-scroll');
+    }
+
+    openBtn.addEventListener('click', openMobile);
+    backdrop.addEventListener('click', closeMobile);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('is-open')) closeMobile(); });
+  </script>
 
   <script src="app.js"></script>
   <noscript>Vui lòng bật JavaScript để trải nghiệm đầy đủ.</noscript>
