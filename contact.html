@@ -5,120 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact — Portfolio</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* NỀN TOÀN MÀN HÌNH + HOTSPOT */
+    html, body { height: 100%; margin: 0; }
+    .contact-screen{
+      position: fixed; inset: 0;
+      /* ẢNH NỀN TOÀN MÀN HÌNH */
+      background: center / cover no-repeat #fff;
+      /* Dùng background-image để không bị rule anti-copy ảnh chặn click */
+    }
+    .contact-screen[data-bg]{ background-image: var(--bg-img); }
+
+    /* Nút back đồng bộ nav-chip, nổi trên nền */
+    .top-bar{
+      position: fixed; left: 12px; top: 12px; z-index: 10;
+      display:flex; gap:10px;
+    }
+    .nav-chip{ height: 42px; box-shadow:4px 4px 0 0 var(--ink); }
+
+    /* Hotspot vô hình, responsive theo % màn hình */
+    .hotspot{
+      position: absolute; z-index: 5; display:block;
+      /* bật 2 dòng dưới nếu cần canh vị trí rồi tắt đi */
+      /* background: rgba(255,0,0,.2); outline: 2px dashed rgba(0,0,0,.35); */
+      border-radius: 12px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hotspot:focus-visible{ outline:3px dashed var(--ink); outline-offset:2px; }
+
+    /* TỌA ĐỘ CẦN CHỈNH NHẸ NẾU LỆCH
+       Các giá trị là % theo toàn màn hình. Sửa nhanh tại đây. */
+    :root{
+      /* Ước lượng icon trên ảnh Contact của bạn */
+      --fb-top: 63%;   --fb-left: 18%;   --fb-w: 8%;   --fb-h: 10%;
+      --ig-top: 63%;   --ig-left: 29%;   --ig-w: 8%;   --ig-h: 10%;
+      --in-top: 63%;   --in-left: 40%;   --in-w: 8%;   --in-h: 10%;
+      /* Vùng email thường là dải dài, cho rộng hơn */
+      --mail-top: 75%; --mail-left: 18%; --mail-w: 30%; --mail-h: 8%;
+    }
+    .hs-fb   { top: var(--fb-top);   left: var(--fb-left);   width: var(--fb-w);   height: var(--fb-h); }
+    .hs-ig   { top: var(--ig-top);   left: var(--ig-left);   width: var(--ig-w);   height: var(--ig-h); }
+    .hs-in   { top: var(--in-top);   left: var(--in-left);   width: var(--in-w);   height: var(--in-h); }
+    .hs-mail { top: var(--mail-top); left: var(--mail-left); width: var(--mail-w); height: var(--mail-h); }
+
+    /* Đảm bảo anchor vẫn nhận click nếu site có anti-copy global */
+    .contact-screen a, .contact-screen a *{ pointer-events: auto !important; }
+  </style>
 </head>
 <body>
-  <main class="stage">
-    <div class="canvas">
+  <!-- Nút quay lại trang chính -->
+  <div class="top-bar">
+    <a class="nav-chip" href="index.html">← Back to main</a>
+  </div>
 
-      <!-- Nút quay về trang chính -->
-      <div class="bottom-bar" style="position:static; padding:10px 16px 0; gap:12px; justify-content:flex-start;">
-        <a class="nav-chip" href="index.html" style="transform:none; height:42px; box-shadow:4px 4px 0 0 var(--ink);">
-          ← Back to main
-        </a>
-      </div>
+  <!-- ẢNH NỀN FULL MÀN HÌNH -->
+  <div
+    class="contact-screen"
+    data-bg
+    style="--bg-img: url('https://github.com/nguyendangminh278-coder/portfolio/blob/58da9487f0b60d235ae71f69d9a534bbc9549ba2/%E1%BA%A2nh%20main/Contact/1.png?raw=1');"
+    role="img"
+    aria-label="Contact board"
+  >
+    <!-- Facebook -->
+    <a
+      class="hotspot hs-fb"
+      href="https://web.facebook.com/dminh2785"
+      target="_blank" rel="noopener"
+      aria-label="Open Facebook"
+    ></a>
 
-      <section class="contact-wrap" aria-labelledby="contactTitle">
+    <!-- Instagram -->
+    <a
+      class="hotspot hs-ig"
+      href="https://www.instagram.com/rinteru_d/"
+      target="_blank" rel="noopener"
+      aria-label="Open Instagram"
+    ></a>
 
-        <!-- Tiêu đề (dùng style có sẵn) -->
-        <h1 id="contactTitle" class="contact-title">Contact</h1>
+    <!-- LinkedIn -->
+    <a
+      class="hotspot hs-in"
+      href="https://www.linkedin.com/in/nguy%E1%BB%85n-%C4%91%C4%83ng-minh-428874286/"
+      target="_blank" rel="noopener"
+      aria-label="Open LinkedIn"
+    ></a>
 
-        <div class="contact-layout">
-          <!-- Cột trái: phone, email, social -->
-          <div class="contact-left">
-
-            <!-- Email: click để mở ứng dụng gửi mail -->
-            <div class="email-row">
-              <a
-                class="email-link"
-                href="mailto:dminh2785@gmail.com?subject=Li%C3%AAn%20h%E1%BB%87%20t%E1%BB%AB%20Portfolio&body=Ch%C3%A0o%20Minh%2C%0A%0AT%C3%B4i%20li%C3%AAn%20h%E1%BB%87%20t%E1%BB%AB%20portfolio..."
-                aria-label="Send email to dminh2785@gmail.com"
-              >
-                <!-- icon thư -->
-                <span class="ico circ" aria-hidden="true">✉</span>
-                <span>Send email: <strong>dminh2785@gmail.com</strong></span>
-              </a>
-            </div>
-
-            <!-- Social contact -->
-            <div class="panel-grid">
-              <div class="panel-manga" role="region" aria-label="Social contact">
-                <span class="panel-head">Social</span>
-
-                <div class="social-row" style="margin-top:10px;">
-
-                  <!-- Facebook -->
-                  <a
-                    class="social-slot"
-                    data-label="Facebook"
-                    href="https://web.facebook.com/dminh2785"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Facebook"
-                    title="Facebook"
-                  >
-                    <!-- SVG fb tối giản -->
-                    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-                      <path d="M22 12a10 10 0 1 0-11.57 9.9v-7H7.9V12h2.53V9.8c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.62.77-1.62 1.56V12h2.76l-.44 2.9h-2.32v7A10 10 0 0 0 22 12z" fill="currentColor"/>
-                    </svg>
-                  </a>
-
-                  <!-- Instagram -->
-                  <a
-                    class="social-slot"
-                    data-label="Instagram"
-                    href="https://www.instagram.com/rinteru_d/"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Instagram"
-                    title="Instagram"
-                  >
-                    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-                      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18.25 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 18.25 6z" fill="currentColor"/>
-                    </svg>
-                  </a>
-
-                  <!-- LinkedIn -->
-                  <a
-                    class="social-slot"
-                    data-label="LinkedIn"
-                    href="https://www.linkedin.com/in/nguy%E1%BB%85n-%C4%91%C4%83ng-minh-428874286/"
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="LinkedIn"
-                    title="LinkedIn"
-                  >
-                    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-                      <path d="M4.98 3.5A2.5 2.5 0 1 1 2.5 6a2.5 2.5 0 0 1 2.48-2.5zM3 8h4v13H3zm7 0h3.8v1.78h.05c.53-1 1.83-2.05 3.77-2.05C21.4 7.73 23 9.5 23 12.6V21H19v-7c0-1.67-.6-2.8-2.1-2.8-1.15 0-1.84.78-2.14 1.53-.11.26-.14.62-.14.98V21h-4z" fill="currentColor"/>
-                    </svg>
-                  </a>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Cột phải: ảnh đại diện hoặc placeholder (giữ class sẵn có để đồng bộ) -->
-          <div class="contact-right">
-            <div class="img-big-placeholder" data-label="Your image here">
-              <!-- Nếu bạn muốn dùng ảnh thật, thay div này bằng:
-              <img class="mascot-img" src="LINK-ANH-CUA-BAN" alt="Contact image">
-              -->
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <!-- Overlay chuyển trang nếu bạn đang dùng -->
-  <div class="transition-overlay" aria-hidden="true"></div>
-
-  <script>
-    // Không cần JS thêm cho các link social/email vì đã dùng <a href="">
-    // Nếu bạn có anti-copy đang chặn pointer-events trên img/svg,
-    // các nút ở đây vẫn click được vì chúng là <a> chứa SVG (không phải <img>).
-  </script>
+    <!-- Email: mở ứng dụng gửi mail -->
+    <a
+      class="hotspot hs-mail"
+      href="mailto:dminh2785@gmail.com?subject=Li%C3%AAn%20h%E1%BB%87%20t%E1%BB%AB%20Portfolio&body=Ch%C3%A0o%20Minh%2C%0A%0AT%C3%B4i%20li%C3%AAn%20h%E1%BB%87%20t%E1%BB%AB%20portfolio..."
+      aria-label="Send email"
+    ></a>
+  </div>
 </body>
 </html>
