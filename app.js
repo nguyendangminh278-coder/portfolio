@@ -166,3 +166,51 @@ function attachSnapScroll(container, opts) {
     }
   })();
 </script>
+// ===== Mobile preview open/close =====
+const openMobileBtn = document.getElementById('openMobile');
+const mobileModal   = document.getElementById('mobileModal');
+const mobileBackdrop= document.getElementById('mobileBackdrop');
+const mobileFrame   = document.getElementById('mobileFrame');
+
+function openMobile(){
+  mobileModal.classList.add('is-open');
+  document.body.classList.add('lock-scroll');
+  // nếu muốn luôn load lại trang mobile mỗi lần mở:
+  // mobileFrame.contentWindow?.location.reload();
+}
+function closeMobile(){
+  mobileModal.classList.remove('is-open');
+  document.body.classList.remove('lock-scroll');
+}
+
+openMobileBtn?.addEventListener('click', openMobile);
+mobileBackdrop?.addEventListener('click', closeMobile);
+
+// Esc để đóng
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && mobileModal.classList.contains('is-open')) closeMobile();
+});
+
+// Ngăn click xuyên qua khung điện thoại
+document.querySelector('.mobile-panel')?.addEventListener('click', (e)=> e.stopPropagation());
+// JS mở và đóng Mobile Preview
+const openMobileBtn = document.getElementById('openMobile');
+const mobileModal = document.getElementById('mobileModal');
+const mobileBackdrop = document.getElementById('mobileBackdrop');
+
+function openMobile() {
+  mobileModal.classList.add('is-open');
+  document.body.classList.add('lock-scroll');
+}
+
+function closeMobile() {
+  mobileModal.classList.remove('is-open');
+  document.body.classList.remove('lock-scroll');
+}
+
+openMobileBtn?.addEventListener('click', openMobile);
+mobileBackdrop?.addEventListener('click', closeMobile);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mobileModal.classList.contains('is-open')) closeMobile();
+});
