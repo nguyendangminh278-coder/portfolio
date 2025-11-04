@@ -1120,4 +1120,141 @@ img, svg, canvas, video {
   30%{ transform:translate(-6px,-10px) rotate(-8deg); }
   100%{ transform:translate(-20px,-160px) rotate(-18deg); opacity:.3; }
 }
+/* Kéo cụm project lên gần menu */
+.project-views{
+  position: relative;
+  z-index: 2;                        /* nằm trên hero nếu có chồng lấp */
+  margin-top: clamp(-120px, -12vw, -60px);  /* kéo lên: desktop */
+}
 
+/* Màn nhỏ: kéo ít hơn để không đè nhau */
+@media (max-width: 980px){
+  .project-views{
+    margin-top: clamp(-48px, -6vw, -24px);
+  }
+}
+
+/* Đảm bảo hero nằm dưới nếu có chồng lấp */
+.proj-hero{ z-index: 1; }
+
+/* ===== Mobile preview FAB + Modal ===== */
+
+/* Nút tròn góc phải */
+.mobile-fab{
+  position: fixed;
+  right: 18px; bottom: 18px;
+  width: 56px; height: 56px;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  background:#fff; color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 0 var(--ink);
+  font-weight: 900; cursor: pointer;
+  z-index: 1050;
+  transition: transform .12s, box-shadow .12s;
+}
+.mobile-fab:hover{ transform: translate(-2px,-2px); box-shadow: 10px 10px 0 0 var(--ink); }
+.mobile-fab:active{ transform:none; box-shadow: 4px 4px 0 0 var(--ink); }
+
+/* Modal tổng */
+.mobile-modal{
+  position: fixed; inset: 0;
+  display: none;                 /* .is-open -> flex */
+  align-items: center; justify-content: center;
+  z-index: 1040;
+}
+
+/* Lớp đen mờ */
+.mobile-backdrop{
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(1px);
+}
+
+/* Khung “điện thoại” ở giữa (trùng vị trí vùng đỏ bạn muốn) */
+.mobile-panel{
+  position: relative;
+  width: 390px;                  /* gần kích thước iPhone 12/13 */
+  max-width: min(92vw, 420px);
+  height: 740px;
+  max-height: min(88vh, 820px);
+  background: #fff;
+  border: 4px solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 24px 24px 0 0 var(--ink), 0 24px 60px rgba(0,0,0,.25);
+  overflow: hidden;
+}
+
+/* Iframe fill khung */
+.mobile-panel > iframe{
+  width: 100%; height: 100%; border: 0; display: block;
+}
+
+/* Hiển thị modal */
+.mobile-modal.is-open{ display: flex; }
+
+/* Ẩn cuộn nền khi mở modal */
+body.lock-scroll{ overflow: hidden; }
+/* Nút mở Mobile Preview */
+.mobile-fab {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 0 var(--ink);
+  cursor: pointer;
+  z-index: 99998;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.mobile-fab:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 0 var(--ink);
+}
+.mobile-fab:active {
+  transform: none;
+  box-shadow: 4px 4px 0 0 var(--ink);
+}
+
+/* Modal cho Mobile Portfolio */
+.mobile-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99997;
+}
+.mobile-modal.is-open {
+  display: flex;
+}
+
+.mobile-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(1px);
+}
+
+.mobile-panel {
+  position: relative;
+  width: 390px;
+  height: 740px;
+  background: #fff;
+  border: 4px solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 24px 24px 0 0 var(--ink), 0 24px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.mobile-panel iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
